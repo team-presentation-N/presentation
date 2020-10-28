@@ -1,0 +1,28 @@
+●IPAddress型
+IPアドレスを表すクラス
+byte[],Int64型を引数としてインスタンスを生成できる
+String型からIPAddress型を取得することも可能
+	IPAddress.Parse(String型)
+
+・IPAddress.Any
+   -静的なフィールド(読み取り専用)
+   -IPv4における"0.0.0.0"に対応しており,「任意のIPアドレス」の意味を持つ
+
+●IPEndPoint型
+ネットワークにおける通信対象を示すクラス
+アドレス(IPAdsress型 or Int64型) + ポート番号(Int32型)
+
+●UdpClientクラス https://docs.microsoft.com/ja-jp/dotnet/api/system.net.sockets.udpclient?view=netcore-3.1
+UDP(User Datagram Protocol)による通信を提供するクラス
+
+●コードの流れ
+・UdpClientクラスのインスタンスを生成
+   -このとき,自身の使用するポートを固定(バインド)できる
+・通信相手の居場所(エンドポイント)をIPEndPoint型で定義する
+   -自身が受信側の場合,相手のIPEndPointはUdpClient.Receiveで上書きされるため,なにを指定してもよい
+     -つまり,UDPではデータの送信元をフィルターできない
+・UdpClientクラスのインスタンスを生成
+・UdpClientクラスのメソッドを用いてデータの送受信を行う
+   -送信側：送信したいbyte[]を引数としてUdpClient.Sendを実行
+   -受信側：UdpClient.Receiveを実行し,byte[]と送信元IPEndPointを受け取る
+・UdpClient.Closeを実行して通信を終了する
