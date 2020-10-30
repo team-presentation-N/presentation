@@ -1,0 +1,64 @@
+# Keyword for S/W developer
+
+## ネットワーク
+	- TCP/IP
+		- TCP/TLS(SSL)	コネクション型
+		- UDP/DTLS		非コネクション型
+	- HTTP(S)			インターネットを根本から支えるプロトコル
+	- DNS				ホスト解決
+
+## 通信ライブラリ
+	- socket
+	- OpenSSL			改ざん、暗号化、なりすまし（CA認証機関）
+		- 公開鍵暗号
+		- 共通鍵暗号
+
+## インフラ管理
+	- Docker			イメージビルド、コンテナ生成
+	- Docker-compose
+	- Kubernetes
+	- Docker Hub		イメージの倉庫（リポジトリ）
+	- Ansible			https://employment.en-japan.com/engineerhub/entry/2019/04/12/103000
+	- Jenkins			テスト自動実行、自動デプロイ（crond/systemdのようなもの）
+
+## インフラ（DB）
+	- MySQL
+	- Postgres
+
+## インフラ（Server）
+	- Apache
+	- Nginx
+
+## クラウド
+	- AWS
+		- EC2
+		- S3
+	- Azure
+	- GCP
+
+## Web API
+	- REST API			現在主流
+	- GraphQL			将来主流？
+
+## WebClient Framework
+	- Vue
+	- Angular
+
+## WebServer Framework
+	- node(Javascript)
+	- flask(Python)
+	- django(Python)
+	- laravel(PHP)
+
+## Git
+	- GitHub
+	- TurtoiseGit
+
+## DevEnv
+	- Visual Studio Code
+	- Visual Studio
+	- Eclipse
+
+## OS
+	- Linux
+	- WSL2
