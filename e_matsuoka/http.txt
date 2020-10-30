@@ -6,3 +6,11 @@ HTTP(HyperText Transfer Protocol)
 歴史
 	1990年末　イギリスの物理学者　ティムバーナーズ＝リーとロバート・カイリューとともにウェブブラウザとウェブサーバを作成した。
 		　通信するにはプロトコルが必要なのでHTTPの最初期のバージョンが設計された。
+		  http://info.cern.ch/hypertext/WWW/TheProject.html 世界で一番最初のホームページ
+
+ARPANET（Advanced　Research Project Agency NETwork 高等研究計画局ネットワーク）
+	世界で初めて運用されたパケット通信コンピュータネットワークであり、インターネットの期限でもある。
+	アメリカ国防省の高等研究計画局が資金を提供し、いくつかの大学と研究機関でプロジェクトが行われた。
+	ARPANETのパケット交換はイギリスの科学者ドナルド・デービスとリンカーン研究所のローレンス・ロバーツが設計に基づいていた（wiki）
+
+Content-Type
