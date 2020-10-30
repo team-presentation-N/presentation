@@ -26,7 +26,7 @@ https://qiita.com/taumax/items/2af451a2c331e8ded892
    戻り値の型に幅を持たせることができる
 
 
-●ダイナミクス
+●ダイナミック
 https://ufcpp.net/study/csharp/sp4_dynamic.html
 
 
@@ -37,7 +37,6 @@ https://ufcpp.net/study/csharp/sp4_dynamic.html
    -inキーワードでの参照渡し
    -戻り値を参照により定義する
    -thisキーワード
-・インデクサー
 ・ポリモーフィズム関連
    -ボックス化
    -型スイッチ

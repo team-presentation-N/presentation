@@ -73,9 +73,4 @@ System.Collections–¼‘O‹óŠÔ‚É‘®‚·‚éƒNƒ‰ƒX‚â,System.ArrayƒNƒ‰ƒX‚Å’è‹`‚³‚ê‚½‚à‚Ì‚ª‚
  Dequeueƒƒ\ƒbƒh‚É‚æ‚èŽæ“¾‚³‚ê‚½ƒf[ƒ^‚ÍQueue‚©‚çíœ‚³‚ê‚é‚ª,Peekƒƒ\ƒbƒh‚Å‚ÍŽæ“¾‚Ì‚Ýs‚í‚ê‚é
 
 
-ESystem.Collections.Generic‚ÌŠeƒNƒ‰ƒX‚Í"ƒWƒFƒlƒŠƒbƒN"‚Æ‚¢‚¤‹@”\‚É‚æ‚è’è‹`‚³‚ê‚Ä‚¨‚è,‚ ‚ç‚ä‚éŒ^‚Ì’l‚âkey‚ðŠi”[‚Å‚«‚é
-
-
-œƒCƒ“ƒfƒNƒT[
-
-
+ESystem.Collections.Generic‚ÌŠeƒNƒ‰ƒX‚Í"ƒWƒFƒlƒŠƒbƒN"‚Æ‚¢‚¤‹@”\‚É‚æ‚è’è‹`‚³‚ê‚Ä‚¨‚è,‚ ‚ç‚ä‚éŒ^‚Ì’l‚âkey‚ðˆµ‚¦‚é
