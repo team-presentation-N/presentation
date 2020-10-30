@@ -8,3 +8,18 @@ folder_onlyサブフォルダにある.gitignoreは、フォルダのみをgitに管理してもらいたい
 それを管理対象とすることで、gitに管理してもらうことができます。ただし、この方法では、厳密にフォルダのみには
 できません（.gitignoreファイル自体は存在しているので）。
 
+## 情報セキュリティ概要
+
+https://www.soumu.go.jp/main_sosiki/joho_tsusin/security_previous/index.htm
+
+## Web技術者への道2020
+
+https://github.com/kamranahmedse/developer-roadmap
+
+## 代表的なWebサーバ実装
+
+apache
+　https://programming-style.com/apache/reference/install-win/
+nginx
+　https://aprico-media.com/posts/3954
+
