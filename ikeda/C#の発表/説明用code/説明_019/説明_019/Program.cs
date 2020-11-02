@@ -9,7 +9,7 @@ namespace 説明_019
             //非同期で実行するメソッドを定義
             void testmethod(object n)
             {
-                for(int i = 0; i < 50000; i++)
+                for(int i = 1; i <= 2000; i++)
                 {
                     Console.WriteLine(n + " " + i);
 
@@ -20,6 +20,8 @@ namespace 説明_019
 
             //WaitCallback はobject型を受け,戻り値を返さないメソッドに対応するdelegate型
             var dele = new System.Threading.WaitCallback(testmethod);
+            Console.WriteLine("何か入力されると非同期処理を開始します");
+            Console.ReadLine();
 
             //QueueUserWorkItem はWaitCallback型とobject型の引数を与えると,
             //WaitCallbackのdelegateにobject型を渡して実行待ちQueueに登録する
