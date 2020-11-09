@@ -1,5 +1,37 @@
 # コンテナを利用した開発環境の構築(Windowsユーザ向け）
 
+## 開発環境イメージ
+
+```plantuml
+skinparam rectangle {
+    roundCorner<<group>> 25
+}
+
+rectangle "ホスト(Windows)/Dockerクライアント" <<group>> {
+  artifact "vscode" as vscode
+  database "folder" #FFFF00 {
+    folder "開発ソース" as src1
+  }
+}
+
+rectangle "ゲスト(WSL2/Linux)/Dockerサーバ" <<group>> {
+  node "開発用コンテナ" as develop #00FF00 {
+      database "/bin/bash\n/usr/bin/gcc\n/usr/bin/make\n/usr/bin/git\n..." #FFFF00 {
+        folder "開発ソース" as src2
+      }
+  }
+}
+
+src1 <=right=> src2: "            共有                     "
+
+```
+
+ホスト側の開発ソースはゲスト側コンテナにマウントされており、共有している。
+vscode上からゲスト側コンテナのファイルを開いており、コンパイラなどはコンテナ側に存在しているものを利用する[^2]。
+[^2]: vscodeの拡張機能などもゲスト側コンテナのファイルシステムにインストールされる。必要な拡張機能の指定は、devcontaner.jsonのextensionsで指定する。ここでもホスト側の環境に影響を与えないようになっている。
+
+Microsoftのデフォルトのコンテナ定義では、コンテナ上の/workspacesフォルダにホストのコンテナ定義ファイルをコピーしたフォルダがマウントされる(変更可能)。
+
 ## コンテナを利用した開発環境構築のメリット
 
 ホストの環境に影響を与えずに、複数の開発環境を準備・インストールすることができる。
@@ -16,7 +48,7 @@ Windowsに下記をインストール
 
 - WSL2（要Windowsビルド1903以上）
 - Docker Desktop
-- Visual Studio Code + Remote Container Plugin
+- Visual Studio Code + Remote Development Plugin
 
 ## 環境構築手順
 
@@ -59,35 +91,6 @@ vscodeで開発用フォルダを開き、コンテナ上で再オープンし�
 ### 5. デバッグ、実行
 
 あとは、Visual Studio等の一般的なIDEでの操作と同じ。
-
-## 開発環境イメージ
-
-```plantuml
-skinparam rectangle {
-    roundCorner<<グループ>> 25
-}
-
-rectangle "ホスト(Windows)" <<グループ>> {
-  artifact "vscode"
-  folder "開発ソース" as src1
-}
-
-
-rectangle "ゲスト(Linux/WSL2)" <<グループ>> {
-  node "開発用コンテナ" {
-      database "/bin/bash\n/usr/local/bin/gcc\n/usr/local/bin/make\n..."
-  }
-  folder "開発ソース" as src2
-}
-
-src1 -- src2: 共有
-
-```
-
-ホスト側の開発ソースはゲスト側にマウントされており、共有している。
-vscode上からゲスト側のファイルを開いており、コンパイラなどはコンテナ側に存在しているものを利用する[^2]。
-[^2]: vscodeの拡張機能などもゲスト側のファイルシステムにインストールされる。必要な拡張機能の指定は、devcontaner.jsonのextensionsで指定する。ここでもホスト側の環境に影響を与えないようになっている。
-
 
 ## その他
 
