@@ -1,0 +1,42 @@
+h1 {
+
+    color: #ff0000;
+
+    font-size: 40px;
+
+    font-family: serif;
+
+    background-color: #f3f372; /*文字の背景を変えている*/
+
+    height: 80px;
+                            /*背景の色の幅と高さ　これの変化により勝手に改行される*/
+    width: 500px;
+}
+
+p {
+
+    color:  #0000ff;
+
+    font-size: 20px;
+
+    font-family: "Lucida Grande";
+}
+
+img{
+    height: 50px;
+
+    width: 70px;
+}
+
+.sec{
+    color: #ff0000; /**/
+}
+
+li{
+    color: #444;
+}
+
+body{
+    font-family: fantasy
+    ;
+}
