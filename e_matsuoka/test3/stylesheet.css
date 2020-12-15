@@ -1,0 +1,180 @@
+body {
+    margin: 0;
+    font-family: "Hiragino Kaku Gothic ProN";
+ }
+  
+a {
+    text-decoration: none;
+}
+
+header{
+    height: 65px;
+    background: rgba(34, 49, 52, 0.9);
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    z-index: 10;/*positionプロパティと併用する必要があるｚはｚ軸のこと*/
+}
+.logo{
+    width: 180px;
+    /*margin-top: ;*/
+}
+.header-left{
+    float: left;
+}
+
+.header-right{
+    float: right;
+    background-color: rgba(255, 255, 255, 0.3);
+    transition: all 0.5s;
+}
+.header-right a{
+    line-height: 65px;
+    padding: 0px 25px 0px 25px;
+    color: white;
+    display: block; /*aタグをブロック要素にして範囲を親要素いっぱいに広げる*/
+}
+
+.header-right:hover{
+    background-color: rgba(255, 255, 255, 0.5)
+}
+.container{
+    width: 1170px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;/*中央に寄せるためにはautoで左右を指定*/
+    margin-left: auto;
+}
+.top-wrapper{
+    padding: 200px 0px 300px 0px;
+    background-image: url(https://sozai-good.com/download?id=5780&type=2&subnumber=0&extention=png);
+    background-size: cover;/*一枚の画像で表示範囲を埋めつくす様に画像の大きさが拡張*/
+    color: white;
+
+}
+.top-wrapper h1{
+    opacity: 0.7;/*透明度をいじるプロパティ*/
+    font-size: 45px;
+    color: red;
+    letter-spacing: 5px;/*文字の感覚を指定*/
+}
+
+.top-wrapper p{
+    opacity: 1;
+    color: green;
+}
+
+.btn{
+    padding: 8px 24px 8px 24px;
+    color: white;
+    display: inline-block;
+    opacity: 0.8;
+    border-radius: 4px; 
+}
+/*マウスホバー　乗っけると色が変わる*/
+.btn:hover{     
+    opacity: 1;
+}
+/*中央寄せ*/
+.top-wrapper{
+    text-align: center;
+}
+.btn-wrapper{
+    margin: 20px 0px 20px 0px;
+}
+.btn-wrapper p{
+    margin: 10px 0px 10px 0px;
+}
+.signup{
+    background-color: #239b76;
+}
+
+.facebook{
+    background-color: #3b5998;
+    margin-right: 10px;
+}
+
+.twitter{
+    background-color: #55acee;
+}
+.fa{
+     margin-right: 5px;
+}
+
+.heading
+{
+    padding: 60px 0px 30px 0px;
+    color: #5f5d60;
+}
+.heading h2{
+    font-weight: normal;/*文字の重さ*/
+} 
+.lesson-wrapper{
+    height: 500px;
+    padding-bottom: 80px;
+    background-color: #f7f7f7; 
+    text-align: center;
+}
+
+.lesson-icon{
+    position: relative;
+}
+.lesson-icon img{
+    width: 200px;
+}
+
+.lesson-icon p{/*アイコンと重なるように表示させている*/
+    position: relative;
+    top: 90px;
+    width: 100%;
+    color: red;
+}
+
+.lesson{
+    float: left;
+    width: 33%;/*親要素に対しての比率になる*/
+}
+.txt-contents{
+    width: 80%;
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #b3aeb5;
+}
+
+.txt-contents:hover{
+    color: black;
+}
+
+.message-wrapper{
+    border-bottom: 1px splid #eee;
+    padding-bottom: 80px;
+    text-align: center;
+
+}
+.message{
+    background-color: #5dca88;
+    padding: 15px 40px 15px 40px;
+    cursor: pointer;/*カーソルの形を変更*/
+    box-shadow: 0px 7px #1a7940;
+}
+
+.message:active{
+    box-shadow: none;
+    position: relative;
+    top: 7px;
+}
+heading h3{
+    font-weight: normal;
+}
+footer{
+    padding-top: 30px;
+}
+footer img{
+    width: 125px;
+}
+
+footer p{
+    color: #b3aeb5;
+    font-size: 12px;
+}
