@@ -1,8 +1,142 @@
-●ファイルへの入出力
+●非同期メソッド(async修飾子とawait演算子)
+メソッドの定義時,戻り値の型を指定する前に"async修飾子"を付与したものを"非同期メソッド"という
+ -ラムダ式では,引数の指定前にasyncを付与すれば非同期メソッドになる
+ -エントリポイントであるMainメソッドにもasyncを付与できる
+   -その場合は戻り値をTask型にする必要がある？？
+
+非同期メソッドでは,「"await演算子"を前置したTask型」の処理を(別のスレッドで)行い,その完了状態への移行を待った上で以降の処理を行える
+ -awaitで実行する処理は,必ずしも別スレッドで行われるわけではない https://qiita.com/tera1707/items/525538e1300f009486ea
+   -awaitが実行されると,対象の処理が完了するまで現在のスレッドの処理を保留するが,保留中に別のタスクのために使用されることがある
+ -await終了後の処理がどのスレッドで行われるかは状況による
+   -必ずしも元のスレッドに復帰するわけではない
+     -SynchronizationContext.Currentが復帰すべきスレッドを記憶している
+       -コンソールアプリではnullとなっているため,復帰先がThreadPoolから(ランダムに)割り当てられる
+       -GUIアプリではUIスレッドが記憶されており,毎回元のスレッドに復帰できる
+
+ 注意：非同期メソッドは"await"が使用可能なことを除けば通常メソッドとほとんど同じようにふるまう
+       ただし,引数と戻り値には参照渡し(ref,out,inキーワード)を使用できない
+        -非同期メソッド内で参照渡しを行う同期メソッドを呼び出すことはできる
+
+非同期メソッドを定義する際には,その名前の最後に"Async"を追加する慣例がある
+また,非同期メソッドの戻り値は Task<戻り値の型> (戻り値不要の場合は単にTask) としておく
+ -戻り値voidだと,処理の終了が外部から検知できず,また,例外の補足もできないため,Task型(Task<T>型)にする必要がある
+   -Task型は,その内部に「処理終了フラグ」「例外発生の有無と詳細」などの情報を持っている
+   -戻り値  Task   → return文は不要(返すべきTaskが自動生成される)
+   -戻り値 Task<T> → return (T型変数); が必要
+                      T型戻り値は (非同期メソッドの戻り値Taskインスタンス).Result というプロパティにより得られる
+                      また,
+			(T型変数) = await (非同期メソッド);
+		      としてもT型戻り値は得られる
+   -ただし,イベントハンドラの場合はasync voidでもよい
+     -実行結果を受け取る相手がいないため
+
+ →説明_023
+   -
+ -非同期メソッドは,「その非同期メソッドの処理が終了したときに完了するTask」を内包する？？
+ -非同期メソッドを(awaitやTask.Runを使わず)同期的に呼び出すと,その処理の完了を待たずに呼び出し元の処理が進んでしまう
+   -一応非同期的には動いている
 
 
-●LINQ
+  〇非同期メソッドを利用するメリット
+   ・同期処理の記述にasync-awaitを付与するなどの少しの修正だけで非同期処理を実現できる
+   ・Task.Runとは異なり,部分的に別スレッドで処理を行いたい場合に重宝する
+      -メインスレッドでしか行えない処理が存在するらしい
+   ・非同期メソッドのために用意されたクラスライブラリ(非同期メソッド)を利用できる
+      -例：StreamWriter.WriteLineAsyncメソッド
+
+------------------------------------------------------------------------------------------------------------------------
+●非同期処理のためによく使われる機能・メソッド・プロパティ
+参考：https://qiita.com/hiki_neet_p/items/d6b3addda6c248e53ef0
+
+・Taskクラス
+   インスタンス生成時にデリゲートを渡すと,コンストラクターにより対応するTask型が生成される
+    -Task型を生成だけして実行を保留にする場合に有効
+
+・Task.Startメソッド
+   対象のTaskの実行を開始する
+    -厳密には,TaskSchedulerクラスの機能によりスレッドの処理待ちQueweにTaskが配置される
+
+★Task.Runメソッド
+   引数としてデリゲートを渡すと,「それをスレッドプールに格納し,順次実行する」というTaskを作成し,実行する
+    -デリゲートと同時にキャンセル条件(トークン)を渡すこともできる
+
+・Task.Factory.StartNewメソッド
+   引数として与えられたデリゲートを実行するTask型を生成し,それを実行する
+    -Task.Runとは細部のふるまいが異なる http://outside6.wp.xdomain.jp/2016/08/04/post-205/
+
+★await (Task型インスタンス);
+   対象のTaskが終了するまで待機する
+    -対象として,「Task型を返す非同期メソッド」を指定することも可能
+      -  await (Task型変数) = (非同期メソッド);
+       とすることで非同期メソッド実行結果が得られる
+
+・(Task型インスタンス).Wait() https://docs.microsoft.com/ja-jp/dotnet/api/system.threading.tasks.task.wait?view=net-5.0
+   対象のTaskが終了するまで待機する
+   引数としてタイムアウトの設定やキャンセル条件(トークン)を渡すこともできる
+    注意：Task完了までの待機中はスレッドの処理が中断される
+           -呼び出し元スレッドへ処理を戻すことができない
+           -GUIスレッドから実行すると,処理中にGUIが完全停止するなどの問題が発生
+          これにより,デッドロック発生の危険性がある https://qwerty2501.hatenablog.com/entry/2014/04/24/235849
+           -awaitなどにより,元のスレッドに戻るまでがTaskに含まれている場合,永久にTaskが完了されず停止する
+             -awaitの場合は
+		await (task).configureAwait(false);
+              とすると戻り先スレッドが呼び出し元スレッドと別なものに割り当てられるため,上記の問題を回避できる
+              https://qiita.com/tera1707/items/525538e1300f009486ea
+
+★Task.WhenAllメソッド https://docs.microsoft.com/ja-jp/dotnet/api/system.threading.tasks.task.whenall?view=net-5.0
+   引数として(戻り値の型Tが等しい)Taskの配列を渡すと,「それらが全て完了したときに完了するTask」を返す
+    -Task.WaitAllメソッド とは異なる
+    -T型戻り値はT型配列の形で与えられる
+
+★Task.WhenAnyメソッド https://docs.microsoft.com/ja-jp/dotnet/api/system.threading.tasks.task.whenany?view=net-5.0
+   引数としてTaskの配列を渡すと,「どれか一つ以上が完了すると完了するTask」を返す
+    -Task.WaitAnyメソッド とは異なる
+    -タイムアウトの設定やキャンセル条件(トークン)を渡すこともできる
+    -Task戻り値は最初に完了したTaskのものとなる
+
+・Thread.Sleepメソッド(System.Threading)
+   引数(int ミリ秒)を渡して実行すると,その間だけ現在のスレッドを停止する
+    -GUIアプリにおいてメイン(UI)スレッドで実行すると,ユーザーの操作を受け付けなくなる
+
+★Task.Delayメソッド
+   引数(int ミリ秒)を渡して実行すると,「その間だけ待機した後完了するTask」を返す
+    -awaitを用いて別スレッドで実行すれば,メイン(UI)スレッドは止めずに処理の一時停止ができる
+
+★キャンセルトークン
+   ・CancellationTokenSourceクラス(System.Threading) https://docs.microsoft.com/ja-jp/dotnet/api/system.threading.cancellationtokensource?view=net-5.0
+      Taskに対する実行停止要求メッセージを生成する
+      Tokenプロパティには対応したCancellationToken構造体が格納されている
+      (インスタンス名).Canselメソッドの実行により,紐付けられたCancellationToken構造体に停止要求を通知する
+
+   ・CancellationToken構造体(System.Threading) https://docs.microsoft.com/ja-jp/dotnet/api/system.threading.cancellationtoken?view=netframework-4.8
+      対応したCancellationTokenSource型インスタンスから停止要求を受信する
+      あらかじめTaskにCancellationToken構造体を紐付けておくことで,Taskに停止処理を行わせることができる
+       (インスタンス名).IsCancellationRequestedプロパティ    ： 停止要求を受けたかどうかをbool型で保持
+       (インスタンス名).ThrowIfCancellationRequestedメソッド ： 上記プロパティがtrueならばOperationCanceledExceptionをthrowする
+        -停止要求の有無はif文を用いて手動でチェックすることもできる
+         	[例]
+		   Task tast = Task.Run(処理(token));
+
+		   void 処理(トークン token)
+		   {
+		     while(task処理中)
+		     {
+		       //なにかの処理
+		       if(token.停止要求){ (停止処理) }
+		     }
+		   }
+
+  トークンは内部的に参照渡しされている？？？
+
+・イベントハンドラ
+
+・非同期での例外発生検知
+
+・継続(Task.ContinueWithメソッド)
 
 
-●インデクサー
-クラスのメンバーとして,任意のインデックス(添字)を紐付けた要素を定義できる
+●GUI使用時に役立つ仕様
+・Control.Invokeメソッド(System.Windows.Forms)
+   引数としてデリゲートを渡すと,それをメイン(UI)スレッドで実行する
+    -画面更新を非同期的に行いたい場合に効果がある
+    -デリゲートに戻り値がある場合はそれを返す
