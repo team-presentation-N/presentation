@@ -1,0 +1,101 @@
+●カレントディレクトリ操作
+System.IO名前空間のメソッドを用いる
+ 取得：Directory.GetCurrentDirectory()
+ 移動：Directory.SetCurrentDirectory(Path文字列)
+
+ドライブレターから始まらないPathは全て cd/Path の形に補完される？？
+
+
+●Path文字列操作
+・特殊ディレクトリのPath取得
+   System.Environment.GetFolderPathメソッド
+    →Environment.SpecialFolder列挙型に登録されたディレクトリPathを返す
+
+
+ 以下,System.IO.Pathクラスのメソッドを用いる
+
+・ファイルPathからファイル名(.拡張子を含む)を取得する
+   Path.GetFileNameメソッド
+    →Path文字列を渡すと,最後の区切り文字("\"など)以降のみを返す
+
+・相対Pathから絶対Pathを得る
+   Path.GetFullPathメソッド
+
+・複数の文字列を連結して一つのPathにする
+   Path.Combineメソッド
+    →引数として複数の文字列またはstring配列を渡すと,それらを "/" で結んで文字列として返す
+       ディレクトリの絶対パス + ファイルの相対パス
+      などの組み合わせを処理する場合に役立つ
+
+
+●ファイル・ディレクトリの検索
+System.IO名前空間のメソッドを用いる
+
+・特定のアドレスに対象が存在するか調べる
+    File.Existsメソッド
+    Directory.Existsメソッド
+     →それぞれ,Path(srting)を渡すとその存在をbool型で返す
+
+・特定のディレクトリに含まれるファイルを検索して一覧にする
+    Directory.GetFilesメソッド
+     →ディレクトリPathを渡すと,直下にあるファイルのPathをstring配列で返す
+       第2引数により,対象のファイル名(拡張子など)を絞り込める
+       第3引数にSearchOption.AllDirectoriesを付与することで,サブディレクトリ以下も検索の対象になる
+
+・特定のワードをPathに含むファイルを検索して一覧にする
+
+
+●ファイル・ディレクトリをGUIで選択する
+System.Windows.Forms名前空間の機能を用いる
+
+・ファイルをダイアログで選択
+   OpenFileDialogクラス(インスタンス化の必要あり)
+    →ShowDialogメソッドを実行すると,ファイル選択ダイアログが出現
+      ファイルを選択して閉じた場合,そのPathがFileNameプロパティに記録される
+      また,SafeFileNameにはファイル名のみが記録される
+
+・フォルダをダイアログで選択
+   FolderBrowserDialogクラス(インスタンス化の必要あり)
+    →ShowDialogメソッドを実行すると,フォルダ選択ダイアログが出現
+      フォルダを選択して閉じた場合,そのPathがSelectedPathプロパティに記録される
+      あらかじめRootFolderプロパティを設定しておくことで,選択可能な最上位の階層を制限できる
+
+
+●ファイル・ディレクトリの作成・コピー・削除・移動・改名
+System.IO名前空間のメソッドを用いる
+
+・ファイルをコピー
+   File.Copyメソッド
+    →コピー対象のPath,コピー先のPathをstringで与えて実行する
+      上書き保存を許可する場合には第3引数として true を指定する必要がある
+
+・ファイルを削除
+   File.Deleteメソッド
+
+・ファイルを移動/改名
+   File.Moveメソッド
+
+・ディレクトリを作成
+   Directory.CreateDirectoryメソッド
+    →作成したいディレクトリのPathを与えて実行する
+
+・ディレクトリをコピー
+   対応するC#用.NETライブラリメソッドは存在しない
+    →後述の検索機能を用いればよい
+      http://www.woodensoldier.info/computer/csharptips/73.htm
+
+    →VisualBasic向けの機能を呼び出す方法もある(Windows限定)
+       Microsoft.VisualBasic.FileIO名前空間(Microsoft.VisualBasic.dllアセンブリ)
+       FileSystem.CopyDirectoryメソッド https://docs.microsoft.com/ja-jp/dotnet/api/microsoft.visualbasic.fileio.filesystem.copydirectory?view=net-5.0
+        sourcePath,destinationPathを与えて実行する
+        上書きを許す場合は第3引数に true を指定する必要がある
+        オプションにより,ファイルコピー進捗ダイアログを表示することもできる
+
+・ディレクトリを削除
+   Directory.Deleteメソッド
+    →Pathを渡して実行すると,そのディレクトリが空ならば削除する
+      第2引数として true を指定すると,ディレクトリの中身も全て削除する
+
+・ディレクトリを移動/改名
+   Directory.Moveメソッド
+    →元Path,行き先Pathを指定して実行する

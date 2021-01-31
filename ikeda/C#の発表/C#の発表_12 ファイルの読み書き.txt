@@ -1,0 +1,36 @@
+●ファイル出力
+System.IO名前空間のメソッドを用いる
+・File.WriteAllTextメソッド
+   Path,文字列を渡すとファイルを出力する
+   既に存在するファイル名を指定した場合は上書きされる
+
+・File.AppendAllTextメソッド
+   上の追記バージョン
+
+   注意：文字列の中で Environment.NewLine を用いることで,実行環境に依らずに改行コードを出力できる
+
+
+●ファイルからの入力
+System.IO名前空間を用いる
+・File.ReadAllTextメソッド
+   Pathを渡すとそのファイルの中身がstringで返される
+   必要ならばエンコードも指定できる
+
+・File.ReadAllLinesメソッド
+   ファイルが行ごとにstringに格納されたstring[]が返される
+
+・StreamReaderクラス
+   コンストラクターにファイルPathを渡し,インスタンス化して用いる
+   ファイルを先頭から読み込むメソッドを持つ
+   インスタンスに「現在の読み込み位置」の概念があるのが特徴
+    -ReadLine  現在位置から1行分(次の改行かEOFまで)を読み取り,stringで返す
+    -ReadToEnd 現在位置からEOFまでを読み取り,stringで返す
+    -Read      現在位置から1文字(or指定した文字数)を読み込み,int(asciiコードorChar[])で返す
+    -Close     ファイルを閉じる
+
+
+●非同期的な入出力
+専用の非同期メソッドが用意されている
+ [例]
+   System.IO.StreamReaderクラス ReadLineAsync / ReadToEndAsync
+   System.IO.StreamWriterクラス WriteAsync / WriteLineAsync
