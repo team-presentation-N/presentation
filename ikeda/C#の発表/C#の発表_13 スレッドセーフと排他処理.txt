@@ -1,0 +1,37 @@
+●スレッドセーフ
+
+
+●排他処理
+
+
+
+・lock文
+https://qiita.com/TsuyoshiUshio@github/items/6bb4dcce6e8531f727c4
+
+
+・ReaderWriterLock
+読み込みは一度に複数スレッドに許可される
+書き込みは一度に単一スレッドにのみ許可される
+
+
+・現在のスレッドIDを確認する
+Thread.CurrentThread.ManagedThreadId
+
+
+●Threadクラスを利用した古い形式の非同期処理
+ThreadPoolを使用したくない場合
+
+	//ThreadStart型デリゲートにメソッドを登録し,それを実行するThreadを生成
+	var t = new Thread( new ThreadStart( メソッド ) );
+                                ParameterizedThreadStart( メソッド )
+	//処理開始
+	t.Start();
+	//処理が完了するまで元スレッドを停止,終了し次第次の処理に進む
+	t.Join();
+
+・Thread.IsAliveプロパティ
+ 正常終了しておらず中止されてもいない場合は true
+ それ以外の場合は false
+
+・Thread.ThreadStateプロパティ(ThreadState列挙型)
+ 状態(Runningなど)をgetできる

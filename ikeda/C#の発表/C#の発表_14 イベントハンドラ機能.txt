@@ -1,0 +1,20 @@
+主に System.Threading名前空間 の機能について紹介する
+
+●スレッド間通信(シグナル処理,スレッド間同期)のための機能
+・CountdownEventクラスの機能
+   特定のシグナルを指定回数受信するまで,対象スレッドを凍結させることができる
+    -回数(int)をコンストラクターに渡してインスタンス化する
+    -CountdownEvent.Wait()   シグナル受信(フラグON状態の検出)まで,スレッドを凍結する
+                             タイムアウトの設定もできる
+    -CountdownEvent.Signal() シグナルを送信(フラグON)
+    -CountdownEvent.Reset()  シグナルを取消(フラグOFF)
+
+・AutoResetEventクラスの機能
+   CountdownEventクラスとほぼ同じだが,シグナルを受信するたびにWaitが解除される
+    -AutoResetEvent.Wait()
+    -AutoResetEvent.Set()  シグナルを送信する(フラグON)
+                           凍結されたスレッドが再開された場合,自動でフラグOFFになる
+
+・ManualResetEventクラスの機能
+   AutoResetEventクラスとほぼ同じ
+    -名前の通り,Set()のあとに手動でReset()する必要がある
