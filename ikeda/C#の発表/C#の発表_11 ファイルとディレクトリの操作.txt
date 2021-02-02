@@ -53,6 +53,10 @@ System.Windows.Forms名前空間の機能を用いる
     →ShowDialogメソッドを実行すると,ファイル選択ダイアログが出現
       ファイルを選択して閉じた場合,そのPathがFileNameプロパティに記録される
       また,SafeFileNameにはファイル名のみが記録される
+      Filterプロパティに文字列を指定することで,それを含むファイルのみを表示するようにフィルタリングできる
+	[例]
+	private OpenFileDialog ofd = new OpenFileDialog();
+	ofd.Filter = "音声ファイル|*.wav;*.mp3|任意のファイル|*.*"
 
 ・フォルダをダイアログで選択
    FolderBrowserDialogクラス(インスタンス化の必要あり)
