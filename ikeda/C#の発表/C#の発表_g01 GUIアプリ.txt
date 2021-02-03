@@ -1,0 +1,44 @@
+System.Windows.Formsの機能によるGUIアプリ開発に関連する項目
+
+●UIスレッド(メインスレッド)
+ GUIを更新するスレッドのこと
+ UIスレッドで時間のかかる処理(例：ファイルコピー,無限ループ)を行うと,ウィンドウがフリーズしてしまう
+  -他スレッドを利用した非同期処理を検討すべき
+
+
+●Application.Runの例外処理
+ catch文などでハンドルされなかった例外が発生した際の処理方法について述べる
+
+・メインスレッドで発生した場合
+ Application.ThreadExceptionイベントが発生し,登録された
+ System.Threading名前空間の"ThreadExceptionEventHandler"型delegateというハンドラが実行される
+   →Application.Run実行前に自作メソッド(例：エラーLog出力)をdelegateを登録すればよい
+
+  [注意1]
+  ThreadExceptionイベントの発生可否はアプリケーション構成ファイル(App.config)の設定に依る
+  Application.SetUnhandledExceptionModeメソッドを使用し,その可否をApp.configに依らずに定めることができる
+     発生させる ：UnhandledExceptionMode.CatchException
+    発生させない：UnhandledExceptionMode.ThrowException
+
+  [注意2]
+  VSの「デバッグ開始」で実行した際は,ThreadExceptionイベントが発生せず,代わりにVS側にダイアログが表示される
+   -VSのバージョンに依るらしい
+   -「デバッグ」-「デバッグなしで開始」を選択すればイベントをテストできる
+
+
+・その他のスレッドで発生した場合
+ 現在のアプリケーションドメインを表すAppDomainクラスの,UnhandledExceptionイベントが発生する
+  AppDomain：ソフトウェアにより分離されたメモリの各領域を指す
+             AppDomainを超えてメモリへ直接干渉することはできない
+
+  [注意1]
+  UnhandledExceptionイベントはメインスレッドでも発生する
+  また,CUIアプリでも使用可能
+
+  [注意2]
+  .NET Framework の内部処理で発生する例外など,UnhandledExceptionイベントを発生させない例外も存在する
+  そのような例外の発生により,適切なエラーログを出力できずにアプリが強制終了してしまう場合があるが,
+  OSにより生成される"イベントログ"を解析することで,エラーの原因を取得できる
+   -windowsの場合,"イベント ビューアー"を利用すればよい
+
+ →Test_001

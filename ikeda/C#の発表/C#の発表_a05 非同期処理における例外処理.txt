@@ -1,17 +1,71 @@
 ●非同期処理で発生した例外の処理
-同期メソッド実行時と同様にtry-catch文で拾うことができる
+Task型の実行中に例外が発生した場合,"Exceptionプロパティ"にその例外(AggregateException クラス)が記録される
+ -例外が発生していなければ, task.Exception は null
 
- [注意]
- VisualStudioのビルド設定が "Debug" のとき,例外を発生スレッドでcatchできなかった場合は実行が中断され,その通知がVS上に表示される
-  -awaitやTask.Runをtry文の内部に記述した場合でも,catch文に移行する前に実行が中断される
-   "続行" をクリックすれば,catch文に移行できる
 
-Task.WhenAll(タスクの列) などで複数の例外が同時に発生した場合は,
+・async-awaitを用いてTaskの終了を待つ場合
+ 同期メソッド実行時と同様にtry-catch文で拾うことができる
 
- catch
- {
-    foreach (Exeption ex in タスクの列.Exeption.InnerExeptions)
-    { (処理) }
- }
+  [注意]
+  VisualStudioのビルド設定が "Debug" のとき,例外を発生スレッドでcatchできなかった場合は実行が中断され,その通知がVS上に表示される
+   -awaitやTask.Runをtry文の内部に記述した場合でも,catch文に移行する前に実行が中断される
+    "続行" をクリックすれば,catch文に移行できる
 
-のように,foreachを用いればよい
+
+
+・await Task.WhenAll などで複数Taskの終了を待つ場合
+ 通常のtry-catchでは,発生した例外の一つしかcatchすることができない
+  -AggregateExceptionではなく,Task内で発生した通常のExceptionがcatchされる
+    -WhenAllの引数のうち,左にあるもので発生した例外が優先されてcatchされる
+
+ 以下のような方法で,AggregateExceptionをcatchし,foreachにより複数の例外に対応することができる
+  解決策1：WaitAllを用いると,全ての例外が1つのAggregateExceptionに出力される
+           ただし,処理の間呼び出し元Threadは凍結される点に注意する必要がある
+
+               catch (AggregateException ae)
+               {
+                   foreach (Exeption ex in ae.InnerExceptions)
+                   { (処理) }
+               }
+
+
+  解決策2：Task.WhenAllで生成されるTask型を変数に取り,その"InnerExceptionsプロパティ"を見る
+
+               var tasks = Task.WhenAll( Taskの列 );
+
+               try
+               {
+                   await tasks;
+               }
+               catch
+               {
+                   foreach (Exeption ex in tasks.Exception.InnerExceptions)
+                   { (処理) }
+               }
+
+  [注意]
+  複数の例外をcatchした場合,そのcatch文内で対処できるものとそうでないものを区別する必要がある
+  (AggregateException型).Handleメソッド(引数：bool型を返す型のdelegate)を用いると,その分岐を実装しやすい
+   -対処可能な型の例外ならばtrue,そうでないならfalseを返すようなメソッドにより例外処理を行う
+     -Handle(false)が実行されると,再びAggregateExceptionがthrowされる
+
+
+
+・Taskの終了を待たずに進める場合
+ Task.ContinueWithメソッド(Taskの継続)を用いる方法がある
+
+  [例]
+   task.Start();
+
+   //Task完了時の処理を定義する
+   task.ContinueWith((task) => {
+                                   if (task.Exception == null)
+                                   {
+                                   //正常完了時に行う処理
+                                   }
+                                   else
+                                   {
+                                      //実行中に例外発生した時の処理
+                                      Console.WriteLine(task.Exception.InnerException);
+                                   }
+                               });
