@@ -19,7 +19,7 @@ Thread.CurrentThread.ManagedThreadId
 
 
 ●Threadクラスを利用した古い形式の非同期処理
-ThreadPoolを使用したくない場合
+ThreadPoolを使用せず,自身で明示的にスレッドを生成/終了したい場合に用いられる
 
 	//ThreadStart型デリゲートにメソッドを登録し,それを実行するThreadを生成
 	var t = new Thread( new ThreadStart( メソッド ) );
