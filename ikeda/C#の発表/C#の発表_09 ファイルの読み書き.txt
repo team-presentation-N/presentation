@@ -29,8 +29,38 @@ System.IO名前空間を用いる
     -Close     ファイルを閉じる
 
 
+●他のスレッドで使用されているファイルを開く
+FileStreamクラスのコンストラクター(String, FileMode, FileAccess, FileShare)により,読み取り権限を持たせたStreamオブジェクトを生成する必要がある
+
+
 ●非同期的な入出力
 専用の非同期メソッドが用意されている
  [例]
    System.IO.StreamReaderクラス ReadLineAsync / ReadToEndAsync
    System.IO.StreamWriterクラス WriteAsync / WriteLineAsync
+
+また,Parallelクラスのメソッド(ForEach)により,複数のStreamを同時に扱える
+
+
+●リソースの自動開放
+通常,インスタンス化されたオブジェクト(マネージド リソース)はGarbage Collectionにより管理され,自動で破棄される
+一方で,ファイルなどの一部のオブジェクト(アンマネージド リソース)は,ユーザー側で明示的に破棄を行う必要がある
+ [例]FileStream.Close()
+
+IDisposableインターフェースを実装するクラスのオブジェクトを扱う際には,"usingステートメント"を利用することができ,
+これによりリソースの破棄用のIL(Microsoft Intermediate Language,中間言語)が自動生成される
+
+ [例]
+   using (FileStream fs = new FileStream( ファイルPathなどの引数 ))
+   {
+      //処理
+   }
+
+C#8.0からは簡略化されたusingステートメントが利用できる
+変数宣言の左辺にusingを付与すればよい
+
+ [例]
+   using var fs = new FileStream( 引数 )
+   {
+      //処理
+   }
