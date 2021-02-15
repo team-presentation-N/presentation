@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPC_Server", "IPC_Server\IPC_Server.csproj", "{42F54489-47DA-4F4E-A5CC-F68638B9062D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPC_Client", "IPC_Client\IPC_Client.csproj", "{C74617AD-0688-4561-BE54-434C276572E5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{42F54489-47DA-4F4E-A5CC-F68638B9062D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42F54489-47DA-4F4E-A5CC-F68638B9062D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42F54489-47DA-4F4E-A5CC-F68638B9062D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42F54489-47DA-4F4E-A5CC-F68638B9062D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C74617AD-0688-4561-BE54-434C276572E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C74617AD-0688-4561-BE54-434C276572E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C74617AD-0688-4561-BE54-434C276572E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C74617AD-0688-4561-BE54-434C276572E5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {19BA85BE-F60B-486D-85D4-322BA9B6C8BB}
+	EndGlobalSection
+EndGlobal
