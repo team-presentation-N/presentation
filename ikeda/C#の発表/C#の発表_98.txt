@@ -17,3 +17,6 @@
 
 ●インデクサー
 クラスのメンバーとして,任意のインデックス(添字)を紐付けた要素を定義できる
+
+
+●EventArgsクラスとEventHandlerデリゲート https://dobon.net/vb/dotnet/vb2cs/event.html
