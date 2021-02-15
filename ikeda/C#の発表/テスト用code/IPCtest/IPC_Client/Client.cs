@@ -10,10 +10,13 @@ namespace IPC_Test
         static void Main(string[] args)
         {
             IpcClient ipcc = new IpcClient();
+
             if (ipcc.Shareobj.Str == null)
             {
                 ipcc.Shareobj.Str = "未設定";
             }
+
+            string accept;
 
             while (true)
             {
@@ -21,7 +24,15 @@ namespace IPC_Test
                 Console.WriteLine("キー入力で共有オブジェクトのメンバーを表示");
                 Console.ReadKey();
                 */
-                Console.WriteLine("受信時刻：" + DateTime.Now.ToString() + " " + ipcc.Shareobj.Str);
+
+                //受信した文字列を表示
+                //もし"exit"なら,このアプリケーションを終了
+                accept = ipcc.Shareobj.Str;
+                Console.WriteLine("受信時刻：" + DateTime.Now.ToString() + " " + accept);
+                if(accept == "exit")
+                {
+                    return;
+                }
             }
         }
     }
