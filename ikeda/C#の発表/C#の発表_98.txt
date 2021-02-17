@@ -19,4 +19,30 @@
 クラスのメンバーとして,任意のインデックス(添字)を紐付けた要素を定義できる
 
 
-●EventArgsクラスとEventHandlerデリゲート https://dobon.net/vb/dotnet/vb2cs/event.html
+●Event関連 https://dobon.net/vb/dotnet/vb2cs/event.html
+・EventArgsクラス
+ 発生したイベントデータを表す
+ 派生クラスが多数定義されていて,状況に応じてそちらが使われることが多い
+ Empty静的プロパティにより,イベントデータのないイベントを表すことができる
+  -この他に独自のメンバーは存在しない
+    -つまり,イベントデータに追加の情報を持たせたい場合はEventArgsの派生クラスを定義し,
+     メンバーを追加する必要がある
+
+      [例]文字列情報を持たせる
+         public class SampleEventArgs : EventArgs
+         {
+             public string message;
+         }
+
+・EventHandlerデリゲート
+ (object, EventArgs)を引数にとり,voidを返すメソッドに対応するdelegateの型
+  -上述の理由により,イベントデータに情報を持たせる場合は使用不可
+
+
+〇おおまかな流れ
+ ・event(delegate)の型を定義
+ ・event変数を定義
+ ・変数にHandlerを登録
+
+ ・イベント発生
+ ・登録されたHandlerが呼び出される

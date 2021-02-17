@@ -18,3 +18,8 @@
 ・ManualResetEventクラスの機能
    AutoResetEventクラスとほぼ同じ
     -名前の通り,Set()のあとに手動でReset()する必要がある
+
+
+ [注意]
+ AutoResetEvent,ManualResetEventのインスタンス生成時には,コンストラクターにbool型を渡し,
+ 初期状態がシグナル受信状態であるか否かを指定する必要がある
