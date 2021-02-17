@@ -3,21 +3,22 @@ System.Runtime.Remotingの機能について紹介する
 
 ●おおまかな流れ
 
-〇サーバー側の準備
- サーバーチャンネルを生成(IpcServerChannelクラスのインスタンスを生成)
-   ↓
- 生成されたチャンネルを登録(ChannelServices.RegisterChannel静的メソッド)
-   ↓
- 送受信対象となるオブジェクト(MarshalByRefObject型)を生成
-   ↓
- 対象オブジェクトを公開(シリアル化)(RemotingServices.Marshal静的メソッド)
+ 〇サーバー側の準備
+  サーバーチャンネルを生成(IpcServerChannelクラスのインスタンスを生成)
+    ↓
+  生成されたチャンネルを登録(ChannelServices.RegisterChannel静的メソッド)
+    ↓
+  送受信対象となるオブジェクト(MarshalByRefObject型)を生成
+    ↓
+  対象オブジェクトを公開(シリアル化)(RemotingServices.Marshal静的メソッド)
 
-〇クライアント側の準備
- クライアントチャンネルを生成(IpcClientChannelクラスのインスタンスを生成)
-   ↓
- 生成されたチャンネルを登録(ChannelServices.RegisterChannel静的メソッド)
-   ↓
- 送受信対象となるオブジェクト(MarshalByRefObject型)を,URLを指定して取得(Activator.GetObject静的メソッド)
+
+ 〇クライアント側の準備
+  クライアントチャンネルを生成(IpcClientChannelクラスのインスタンスを生成)
+    ↓
+  生成されたチャンネルを登録(ChannelServices.RegisterChannel静的メソッド)
+    ↓
+  送受信対象となるオブジェクト(MarshalByRefObject型)を,URLを指定して取得(Activator.GetObject静的メソッド)
 
 
  以上の手順を踏むことで,送受信対象オブジェクトは複数のプロセスから自由にアクセスが可能となる
@@ -32,3 +33,8 @@ System.Runtime.Remotingの機能について紹介する
  IPCでは,通信が行われない時間が続くと自動で接続が切断されてしまう
   -送受信対象オブジェクトの定義で生存期間のオーバーライド(InitializeLifetimeServiceメソッド)を
    行うことにより,これを回避できる
+
+ [注意3]
+ 送受信対象オブジェクトのメンバーにはシリアル化可能なもののみが含められる？？
+  -intやstringは工夫なしで送受信可能
+  -delegateなどはそのままでは不可能
