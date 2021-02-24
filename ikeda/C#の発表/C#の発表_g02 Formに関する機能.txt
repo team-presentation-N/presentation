@@ -1,0 +1,58 @@
+●基本的な使い方
+-Formクラスを継承するクラスを定義
+  -Controlクラスのオブジェクト(ボタン,テキストボックスなど)をメンバーに含められる
+    -Formコンストラクター内のInitializeComponent()で初期化される
+    -オブジェクトにユーザーが干渉した際に呼び出されるイベントハンドラを指定できる
+      例:Clickプロパティ
+-そのインスタンスを生成
+-inst.Show()で画面に表示
+-inst.Close()で閉じる
+  -Show()で呼び出された場合は自動でリソースが解放される
+  -ShowDialog()で呼び出された場合はリソースは解放されない
+    -Dispose()で解放する
+
+
+●様々なプロパティ
+・TopMost
+ 常に最前面に表示するか
+
+・ShowInTaskbar
+ そのFormをタスクバーに表示するか
+
+・ControlBox
+ 閉じる/最大化/最小化などを表示するか
+
+・FormBorderStyle
+ 外枠について(サイズ変更可能か)
+
+・AutoSize
+ サイズを自動で変更するか
+  -AutoSizeModeプロパティ(AutoSizeMode列挙型)を指定できる
+
+・Visible
+ 表示されているか
+  -主に,外部クラスから参照して扱う
+
+・Location
+ 表示する座標
+ Show()後に以下で設定できる??
+   SetBounds(X, Y, 0, 0, BoundsSpecified.Location)
+
+
+●メッセージボックス
+表示したいFormの機能が少なければ,FormよりもMessageBoxクラスの静的メソッドを用いた方がよい
+単に文章を表示するほか,ボタンを表示して確認を求めることもできる
+
+Show()には複数のoverloadがある
+https://docs.microsoft.com/ja-jp/dotnet/api/system.windows.forms.messagebox.show?view=net-5.0
+
+MessageBox.Show( string メッセージ );
+
+MessageBox.Show( メッセージ, タイトル, 配置するボタン, 表示するアイコン, 既定の選択ボタン);
+ string
+ string
+ MessageBoxButtons 列挙型
+ MessageBoxIcon 列挙型
+ MessageBoxDefaultButton 列挙型
+
+ どのボタンが押されたかは Show()の戻り値である DialogResult型 で得られる
