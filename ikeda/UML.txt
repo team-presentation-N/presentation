@@ -1,0 +1,40 @@
+Unified Modeling Language(統一モデリング言語)の略
+
+以下では"PlantUML"によって図を描画する方法について述べる
+
+●クラス図
+〇各class
+ class,abstruct class,interface,enumなど
+ そのままの種別+名称を記述すればよい
+
+  [例] class MainClass { }
+       interface ITest { }
+
+
+〇メンバー
+ 基本的に自由に記述できるが,()を付けるとメソッド扱いになる
+ ・修飾子
+   メンバーの宣言時,先頭に以下のように修飾子を付与できる
+    -アクセス修飾子(可視性)
+      - private
+      # protected
+      + public
+    -その他の修飾子
+      {static}
+      {abstruct}
+
+  ・セパレータ
+   クラスを縦に区切ることができる
+    -使える区切り線は -- .. == __ の4種
+    -区切り線の途中に説明文を埋め込むことができる
+      [例] .. member ..
+
+
+〇関係
+ 関連 --
+ 汎化 <|-- classの継承
+ 実現 <|.. interfaceの実装
+
+ [例] ITest <|.. MainClass
+
+ 関係の記述の後に ":" から始まるラベルを追加することができる
