@@ -1,21 +1,6 @@
-●一般の文字列・配列の操作
-・ゼロパディング
-   string.Format("{0:00}", time % 60)
-
-・文字列に情報がない(空文字orNull)ことを検知
-   string.IsNullOrEmpty( string );
-    -戻り値はbool
-
-・配列やコレクションの要素を連結
-   string.Join(string 区切り文字, params string[]);
-
-・配列の要素を一括で変換
-   [例 string[]をint[]に変換]
-   intArray = Array.ConvertAll(strArray, int.Parse);
-
-
 ●LINQ
 ・配列の要素を一括で変換
+   [例]文字配列をint配列に変換
    intArray = strArray.Select(int.Parse).ToArray();
 
 
