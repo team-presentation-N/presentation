@@ -1,0 +1,26 @@
+●文字列補完式と書式設定
+https://qiita.com/Nossa/items/c2226232b31d7665267f
+文字列の先頭に $ を付与することで,変数を文字列内に挿入できる
+ [例]Console.WriteLine($"こんにちは、{name}さん。 今は{hour}時です。");
+
+・ゼロパディング
+   [例]int型 minutes を必要ならばゼロ埋めし,2桁で表す
+    $"{minutes:00}"
+
+・年月日の表現と空白埋め
+   [例]DateTime型 now を見やすい形で表す
+    $"{now:yyyy年MM月dd日}"                   //2021年03月03日
+    $"{now.Year}年{now.Month,2}月{now.Day,2}" //2021年 3月 3日
+
+
+●一般の文字列・配列の操作
+・文字列に情報がない(空文字orNull)ことを検知
+   string.IsNullOrEmpty( string );
+    -戻り値はbool
+
+・配列やコレクションの要素を連結
+   string.Join(string 区切り文字, params string[]);
+
+・配列の要素を一括で変換
+   [例 string[]をint[]に変換]
+   intArray = Array.ConvertAll(strArray, int.Parse);

@@ -24,7 +24,7 @@ Task型の実行中に例外が発生した場合,"Exceptionプロパティ"にその例外(AggregateExce
 
                catch (AggregateException ae)
                {
-                   foreach (Exeption ex in ae.InnerExceptions)
+                   foreach (Exception ex in ae.InnerExceptions)
                    { (処理) }
                }
 
@@ -39,7 +39,7 @@ Task型の実行中に例外が発生した場合,"Exceptionプロパティ"にその例外(AggregateExce
                }
                catch
                {
-                   foreach (Exeption ex in tasks.Exception.InnerExceptions)
+                   foreach (Exception ex in tasks.Exception.InnerExceptions)
                    { (処理) }
                }
 

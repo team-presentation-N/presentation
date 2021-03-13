@@ -19,6 +19,7 @@
 
 ●LINQ
 ・配列の要素を一括で変換
+   [例]文字配列をint配列に変換
    intArray = strArray.Select(int.Parse).ToArray();
 
 
