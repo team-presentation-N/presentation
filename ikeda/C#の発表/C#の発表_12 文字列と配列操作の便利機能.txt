@@ -13,13 +13,18 @@ https://qiita.com/Nossa/items/c2226232b31d7665267f
     $"{now.Year}年{now.Month,2}月{now.Day,2}" //2021年 3月 3日
 
 
+●文字列の分割と結合
+・文字列を指定した区切り文字で分割して配列に詰める
+   (文字列変数).Split(区切り文字の配列,StringSplitOptions列挙型)
+
+・配列やコレクションの要素を連結
+   string.Join(string 区切り文字, params string[]);
+
+
 ●一般の文字列・配列の操作
 ・文字列に情報がない(空文字orNull)ことを検知
    string.IsNullOrEmpty( string );
     -戻り値はbool
-
-・配列やコレクションの要素を連結
-   string.Join(string 区切り文字, params string[]);
 
 ・配列の要素を一括で変換
    [例 string[]をint[]に変換]
